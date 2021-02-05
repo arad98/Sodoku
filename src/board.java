@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class board {
     
@@ -6,7 +6,7 @@ public class board {
     private int size = 0;
 
     private int[][] board;
-    private int[] rowRandom = {1,2,3,4,5,6,7,8,9};
+    private ArrayList<Integer> rowRandom  = new ArrayList<>();
 
     public int[][] GRID_TO_SOLVE = {
         {7,8,0,4,0,0,1,2,0},
@@ -19,6 +19,12 @@ public class board {
         {1,2,0,0,0,7,4,0,0},
         {0,4,9,2,0,6,0,0,7},
     };
+
+    public void setRandList(int size) {
+        for(int i = 0; i < size;i++) {
+            rowRandom.add(i);
+        }
+    }
 
     /*  
     method sets size of board, can only be a multiple of 9
@@ -45,9 +51,14 @@ public class board {
     removed difficulty level of numbers, easy,med,hard,very hard
     */
     public void fillBoard() {
-        collections.shuffle(rowRandom);
+        Collections.shuffle(rowRandom);
+        int[] arrayRand = new int[rowRandom.size()];
+        for(int i = 0; i < rowRandom.size();i++) {
+            arrayRand[i] = rowRandom.remove(i);
+        }
+    
         for(int col = 0; col < size;col++) {
-            board[1][col] =rowRandom[col];
+            board[1][col] =arrayRand[col];
         }
     }
 
