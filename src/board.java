@@ -5,7 +5,7 @@ public class board {
     // for zie of board, will be in multiple of 3
     private int size = 0;
 
-    private int[][] board;
+    private int[][] fullBoard;
     private ArrayList<Integer> rowRandom  = new ArrayList<>();
 
     public int[][] GRID_TO_SOLVE = {
@@ -27,21 +27,19 @@ public class board {
     }
 
     /*  
+    will just accept 9 for now
     method sets size of board, can only be a multiple of 9
     */
     public void setSize(int num) {
         if(num % 9 == 0) {
+            int[][] newBoard = new int[num][num];
             size = num;
             for(int row = 0; row < size;row++) {
                 for( int col = 0; col < size;col++) {
-                    board[row][col] = 0;
+                    newBoard[row][col] = 0;
                 }
             }
-        } else {
-            System.out.print("Needs to be a multiple of 9");
-            Scanner newNum = new Scanner(System.in);
-            num = newNum.nextInt();
-            setSize(num);
+            fullBoard = newBoard;
         }
     }
 
@@ -55,10 +53,6 @@ public class board {
         int[] arrayRand = new int[rowRandom.size()];
         for(int i = 0; i < rowRandom.size();i++) {
             arrayRand[i] = rowRandom.remove(i);
-        }
-    
-        for(int col = 0; col < size;col++) {
-            board[1][col] =arrayRand[col];
         }
     }
 
@@ -75,11 +69,45 @@ public class board {
         return size;
     }
 
-
-
-
-    public static void Main(string[] args ) {
-
+    public void printBoard() {
+        for(int i = 0; i < fullBoard.length;i++) {
+            
+            if (i%3 == 0 && i != 0) {
+                System.out.println("- - - - - - - - - - - - ");
+            }
+            for(int j = 0; j < fullBoard[0].length;j++) {
+                if (j%3 == 0 && j != 0) {
+                    System.out.print(" | ");
+                    
+                }
+                if(j==8) {
+                    System.out.println(fullBoard[i][j]);
+                } else {
+                    System.out.print(fullBoard[i][j] + " ");
+                }
+            }
+        }
     }
+
+    public int getBoardSpot(int row, int col) {
+        int[] out = new int[2];
+        return fullBoard[row][col];
+    }
+
+
+
+
+    public board() {
+
+        setSize(9);
+        fillBoard();
+        
+    }
+
+    public static void main(String[] args) {
+        board temp = new board();
+    }
+
+
 
 }
